@@ -3,11 +3,22 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const bodyParser = require('body-parser');
 const traitementRouter = require('./src/routes/TraitementRouter')
+const formuleRouter = require('./src/routes/FormuleRouter')
+const rapportRouter = require('./src/routes/RapportRouter')
+const souscriptionRouter = require('./src/routes/SouscriptionRouter')
+const tokenRouter = require('./src/routes/TokenRouter')
+const userRouter = require('./src/routes/UserRouter')
 
 const app = express();
+app.use(bodyParser.json())
 
+app.use(logger('dev'));
+// app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use((req, res, next) => {
@@ -23,13 +34,11 @@ app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
 
 // Liste des routes du serveur
 app.use('/', traitementRouter);
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/api/formule', formuleRouter)
+app.use('/api/rapport', rapportRouter)
+app.use('/api/user', userRouter)
+app.use('/api/souscription', souscriptionRouter)
+app.use('/api/token', tokenRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

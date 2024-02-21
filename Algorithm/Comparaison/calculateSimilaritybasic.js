@@ -1,5 +1,6 @@
 
 const now = require('performance-now');
+const Logger = require("../../logger/Logger");
 
 function calculateSimilaritybasic(text1, text2) {
     const start = now(); 
@@ -13,6 +14,7 @@ function calculateSimilaritybasic(text1, text2) {
   const executionTime = (end - start).toFixed(2); // Calculez le temps d'exécution en millisecondes
 
   console.log('Temps d\'exécution de la fonction :', executionTime, 'ms');
+  Logger('Temps d\'exécution de la fonction SimilarityBasic :' + executionTime + 'ms')
   return similarity;
 }
 module.exports=calculateSimilaritybasic;

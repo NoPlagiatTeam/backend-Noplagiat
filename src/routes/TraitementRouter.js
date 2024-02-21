@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const multer = require("../middleware/multer-config")
-const traitementController = require("../controllers/TraitementController")
+const {detection, newTraitementDoc, detailPlagiat, analyseDoc, traitementDoc} = require("../controllers/TraitementController");
 
-router.post('/api/detection_plagiat', multer.single('document'), traitementController.traitementDoc);
-router.post('/api/analyse_doc', multer.single('document'), traitementController.analyseDoc)
-
+router.post('/detection_plagiat', multer.single('document'), traitementDoc);
+router.post('/analyse_doc', multer.single('document'), analyseDoc);
+router.post('/getPlagiaDetail', detailPlagiat);
+router.post('/traitement_doc', newTraitementDoc);
+router.post('/detection',detection);
 
 
 module.exports = router;

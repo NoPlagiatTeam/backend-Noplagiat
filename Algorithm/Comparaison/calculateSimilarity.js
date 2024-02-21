@@ -1,5 +1,6 @@
 const natural = require('natural');
 const now = require('performance-now');
+const Logger = require("../../logger/Logger");
 //calcule la similarité en utilisant l'indice de Jaccard, qui mesure la similitude entre deux ensembles
 function calculateSimilarity(text1, text2) {
     const start = now(); 
@@ -21,6 +22,7 @@ function calculateSimilarity(text1, text2) {
   const executionTime = (end - start).toFixed(2); // Calculez le temps d'exécution en millisecondes
 
   console.log('Temps d\'exécution de la fonction :', executionTime, 'ms');
+  Logger('Temps d\'exécution de la fonction Jaccard :' + executionTime + 'ms')
 
   return similarity;
 }

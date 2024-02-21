@@ -1,6 +1,7 @@
 
 const now = require('performance-now');
 const stringSimilarity = require('string-similarity');
+const Logger = require("../../logger/Logger");
 function calculateSimilaritymidle(text1, text2) {
     // Utilisez string-similarity pour calculer la similarité entre les deux textes
     var similarity = stringSimilarity.compareTwoStrings(text1, text2) * 100;
@@ -10,6 +11,7 @@ function calculateSimilaritymidle(text1, text2) {
     const executionTime = (end - start).toFixed(2); // Calculez le temps d'exécution en millisecondes
   
     console.log('Temps d\'exécution de la fonction :', executionTime, 'ms');
+    Logger('Temps d\'exécution de la fonction SimilarityMiddle:' + executionTime + 'ms')
     return similarity;
   }
   module.exports=calculateSimilaritymidle;
