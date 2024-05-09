@@ -1,10 +1,11 @@
 const {userTable} = require("../db/sequelize");
 const bcrypt = require("bcrypt");
-
+const jwt = require('jsonwebtoken');
+const private_key = require('../auth/private_key');
 exports.login = async (req,res)=>{
     console.log(req.body);
 
-    userTable.findOne({where:{email:req.body.email}, include:[userTable]})
+    userTable.findOne({where:{email:req.body.nom}, include:[userTable]})
         .then(user=>{
             if(!user){
                 const message="l'utilisateur demandé est inexistant";
@@ -16,17 +17,17 @@ exports.login = async (req,res)=>{
                         const message="Le mot de passe est incorrect!";
                         return res.status(401).json({message});
                     }
-                    /*  // JWT
+                    // JWT
                       const token =jwt.sign(
                           {
-                              clientsId:admin.id
+                              clientsId:user.id
                           },
-                          privatekey,
+                          private_key,
                           {expiresIn:'1000h'}
-                      )*/
+                      )
                     // req.session.user=user;
                     const message="L'utilisateur a ete connecte avec succes!";
-                    return res.status(200).json({message, data:user});
+                    return res.status(200).json({message, data:user,token});
                 })
         })
         .catch(err=>{

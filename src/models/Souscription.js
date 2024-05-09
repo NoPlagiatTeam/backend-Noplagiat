@@ -5,18 +5,12 @@ const souscription =(sequelize, DataTypes,user,formule)=>{
             primaryKey: true,
             autoIncrement: true
         },
-       
-        
-        
         },
         {
             timestamps: true,
             createdAt:true,
             updateAt: 'updateTimestamp'
-
-
-        }
-        );
+        });
         
         Souscription.belongsTo(user)
         Souscription.belongsTo(formule)

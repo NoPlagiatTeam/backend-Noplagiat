@@ -10,16 +10,15 @@ const rapportRouter = require('./src/routes/RapportRouter')
 const souscriptionRouter = require('./src/routes/SouscriptionRouter')
 const tokenRouter = require('./src/routes/TokenRouter')
 const userRouter = require('./src/routes/UserRouter')
+const sequelize = require('./src/db/sequelize');
 
 const app = express();
 app.use(bodyParser.json())
-
 app.use(logger('dev'));
 // app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +26,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
+sequelize.initDB();
 
 
 app.use('/downloaded_pdfs',express.static(__dirname + '/downloaded_pdfs'))

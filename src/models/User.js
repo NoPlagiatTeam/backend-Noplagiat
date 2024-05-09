@@ -1,56 +1,61 @@
 const user =(sequelize, DataTypes)=>{
     const User= sequelize.define('users', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        
-        nom: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        email: {
-            type: DataTypes.STRING,
-            unique: {
-                msg:"l'email est déjà utilisé"
+            id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
             },
-            allowNull: false
-        },
-        tel: {
-            type: DataTypes.STRING,
-            unique: {
-                msg:"le tel est déjà utilisé"
+
+            nom: {
+                type: DataTypes.STRING,
+                allowNull: false
             },
-            allowNull: false
-        },
-        photo: {
-            type: DataTypes.STRING,
-           
-        },
-        credit:{
-            type: DataTypes.DOUBLE,
-          
-        },
-       
-        emailverif: {
-            type: DataTypes.BOOLEAN,
-           
-        },
-        numverif: {
-            type: DataTypes.BOOLEAN,
-           
-        },
+            email: {
+                type: DataTypes.STRING,
+                unique: {
+                    msg:"l'email est déjà utilisé"
+                },
+                allowNull: true
+            },
+            tel: {
+                type: DataTypes.STRING,
+                unique: {
+                    msg:"le tel est déjà utilisé"
+                },
+                allowNull: true
+            },
+
+            photo: {
+                type: DataTypes.STRING,
+
+            },
+            credit:{
+                type: DataTypes.DOUBLE,
+
+            },
+            creditRestant:{
+                type: DataTypes.DOUBLE,
+
+            },
+
+            emailverif: {
+                type: DataTypes.BOOLEAN,
+
+            },
+            numverif: {
+                type: DataTypes.BOOLEAN,
+
+            },
 
 
-       
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate:{
-                min:6
+
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate:{
+                    min:6
+                }
             }
-        }
         },
         {
             timestamps: true,
@@ -59,11 +64,11 @@ const user =(sequelize, DataTypes)=>{
 
 
         }
-        );
-      
-        User.belongsTo(User);
-        
+    );
 
-        return User;
+    User.belongsTo(User);
+
+
+    return User;
 }
 module.exports = user;

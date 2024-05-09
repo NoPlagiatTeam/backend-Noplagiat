@@ -1,1 +1,1 @@
-module.exports="CUSTOM_PRIVATE_KEY";
+module.exports="25f0cf378e4cb60b4b35f79fd2db4029f6a7db5b2de8d599e9a87b77c62c6c59";

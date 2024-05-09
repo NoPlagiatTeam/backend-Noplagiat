@@ -3,6 +3,7 @@ const searchGoogleForPDFs = require("../GoogleResearch/searchGoogleForPDFs");
 const Logger = require("../../logger/Logger");
 
 async function traitement(req,res, textdoc,text) {
+    console.log("okay")
     let links = [];
     let index;
     let element;

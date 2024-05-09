@@ -2,7 +2,6 @@ const {rapportTable} = require("../db/sequelize");
 const {ValidationError} = require("sequelize");
 
 exports.getAll = async (req ,res)=>{
-
     rapportTable.findAll({
             include:[userTable]
         }

@@ -1,7 +1,12 @@
-const jwt = require('jsonwebtoken');
-    const private_key = require('../auth/private_key');
 
-module.exports = (req, res, next) => {
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const private_key = require('../auth/private_key');
+
+const app = express();
+
+// Middleware pour vérifier l'authentification JWT
+function verifyToken(req, res, next) {
     const authorization = req.headers.authorization;
 
     if(!authorization){
@@ -11,19 +16,20 @@ module.exports = (req, res, next) => {
     }
     const token = authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, private_key, (error, decodedToken) => {
-        if(error){
-            const message = "L'utilisateur n'est pas authorise a acceder a cette ressource!";
-            return res.status(401).json({message, data:error});
-        }
+            if(error){
+                const message = "L'utilisateur n'est pas authorise a acceder a cette ressource!";
+                return res.status(401).json({message, data:error});
+            }
 
-        const id = decodedToken.id;
-    if(req.body.id && req.body.id!== id){
-        const message = "L'identifiant de l'utilisateur est invalide";
-        res.status(401).json({message});
-    } else{
-        next();
-    }
- }
-);
+            const id = decodedToken.id;
+            if(req.body.id && req.body.id!== id){
+                const message = "L'identifiant de l'utilisateur est invalide";
+                res.status(401).json({message});
+            } else{
+                next();
+            }
+        }
+    );
 
 }
+module.exports=verifyToken;
