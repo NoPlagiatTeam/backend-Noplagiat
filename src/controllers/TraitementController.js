@@ -8,6 +8,7 @@ const getPlagiaDetail = require("../../Algorithm/Traitement/getPorcentage");
 const comparePDFsWithInput = require("../../Algorithm/Traitement/comparePDFsWithInput");
 const Logger = require("../../logger/Logger");
 const download = require('download');
+const {userTable} = require("../db/sequelize");
 
 
 async function _returnNbMotAndPages(detectedMimeType, buffer, res){
@@ -125,12 +126,22 @@ exports.newTraitementDoc = async (req, res, next)=>{
 
 exports.detection = async (req, res, next) =>{
     try {
+        userTable.findByPk(req.body.userId)
+            .then(user=>{
+                if (user) {
+                    // Mettez à jour le champ souhaité
+                    user.credit -=req.body.nbmot;
+                    // Enregistrez les modifications dans la base de données
+                    return user.save();
+                } else {
+                    return   res.status(400).send('Utilisateur non trouvé');
+                }
+            })
         return comparePDFsWithInput(req.body.text, req.body.pdfFiles,res,
             0);
     } catch (error) {
         console.error('Erreur lors du traitement du fichier :', error);
         res.status(500).send('Erreur lors du traitement du fichier.');
-        Logger("Erreur lors du traitement du fichier.")
     }
 }
 

@@ -1,4 +1,4 @@
-const {souscriptionTable, formuleTable, userTable, rapportTable} = require("../db/sequelize");
+const {souscriptionTable, formuleTable, userTable} = require("../db/sequelize");
 const {ValidationError} = require("sequelize");
 
 
@@ -25,7 +25,7 @@ exports.add = async (req,res)=>{
                 .then(user=>{
                     if (user) {
                         // Mettez à jour le champ souhaité
-                        user.credit = 	formule.nbmot;
+                        user.credit += 	formule.nbmot;
                         // Enregistrez les modifications dans la base de données
                         return user.save();
                     } else {
@@ -52,7 +52,7 @@ exports.add = async (req,res)=>{
 }
 
 exports.getByUser = async (req ,res)=>{
-    rapportTable.findAll({
+    souscriptionTable.findAll({
             where:{userId:req.params.userId},
             include:[userTable,formuleTable]
         }
@@ -62,6 +62,7 @@ exports.getByUser = async (req ,res)=>{
             res.status(200).json({message,data: conso})
         })
         .catch(err =>{
+            console.log(err)
             res.status(500).json({message: "Erreur lors de la recuperation de la liste! Reessayer plus tard",err})
         })
 
