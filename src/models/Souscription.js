@@ -5,6 +5,10 @@ const souscription =(sequelize, DataTypes,user,formule)=>{
             primaryKey: true,
             autoIncrement: true
         },
+            expireAt: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
         },
         {
             timestamps: true,

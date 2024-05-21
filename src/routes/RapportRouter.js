@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/all',verifyToken,getAll)
 router.get('/ByUser/:userId',verifyToken,upload.single("rapport"),getByUser)
-router.get('/add',verifyToken,add)
+router.post('/add',verifyToken,add)
 
 
 module.exports = router;

@@ -35,6 +35,8 @@ exports.add = async (req,res)=>{
                 if (updatedUser) {
                     console.log('Champ modifié avec succès.');
                     const message="L'souscription "+req.body.titre+" a bien été créé";
+                    // Ajout de façon aléatoire d'une date d'expiration
+                    rapport.expireAt = new Date().setDate(new Date().getDate()+20)
                     return   res.status(200).json({message, data: rapport});
                 }
             }).catch(err => {

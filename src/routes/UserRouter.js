@@ -1,11 +1,12 @@
 const express = require('express');
 const upload = require("../middleware/uploaduser");
-const {login, register, getByUserId} = require("../controllers/UserController");
+const {login, register, getByUserId, update} = require("../controllers/UserController");
 const verifyToken = require("../middleware/auth");
 const router = express.Router();
 
 router.post('/login',login)
-router.post('/register',verifyToken,upload.single("photo"),register)
+router.post('/register',upload.single("photo"),register)
 router.get('/getById/:id',verifyToken, getByUserId)
+router.post('/update',verifyToken, update)
 
 module.exports = router;

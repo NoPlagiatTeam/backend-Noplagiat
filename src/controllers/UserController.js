@@ -5,7 +5,7 @@ const private_key = require('../auth/private_key');
 exports.login = async (req,res)=>{
     console.log(req.body);
 
-    userTable.findOne({where:{email:req.body.nom}, include:[userTable]})
+    userTable.findOne({where:{email:req.body.email}, include:[userTable]})
         .then(user=>{
             if(!user){
                 const message="l'utilisateur demandé est inexistant";
@@ -47,7 +47,7 @@ exports.register = async (req,res)=>{
     }
     userTable.create(req.body)
         .then(user =>{
-            const message="  user "+req.body.nom+" a bien été créé";
+            const message="  user "+req.body.email+" a bien été créé";
             res.status(200).json({message, data: user});
         })
         .catch(err =>{
@@ -75,4 +75,30 @@ exports.getByUserId = async (req,res)=>{
             const message="utiliaateur  non existant";
             return res.status(500).json({message, data:err});
         })
+}
+
+exports.update = async (req,res)=>{
+    const newPassword = req.body.password ? bcrypt.hashSync(req.body.password,10) : undefined
+    const updateData = {email: req.body.email, password: newPassword }
+    const userId = req.body.userId
+    try{
+        console.log(updateData)
+        const [updated] = await userTable.update(updateData, {
+            where: { id: userId }
+        });
+        if (updated) {
+            const updatedUser = await userTable.findByPk(userId);
+            const message = 'User updated successfully';
+            return res.status(200).json({message, data: updatedUser});
+        } else {
+            const message = 'User not found or no changes made'
+            return res.status(404).json({message});
+        }
+    }catch (e){
+        console.error('Error updating user:', e);
+        console.log(e);
+        const message="utiliaateur  non existant";
+        return res.status(500).json({message, data:e});
+    }
+
 }
