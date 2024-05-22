@@ -34,9 +34,9 @@ jobs:
               cd $APP_DIR/backend-Noplagiat/
               git pull origin main
             fi
-            cd $APP_DIR
+            cd $APP_DIR/backend-Noplagiat/
             npm install
-            pm2 reload all
+            pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
             
             
             
