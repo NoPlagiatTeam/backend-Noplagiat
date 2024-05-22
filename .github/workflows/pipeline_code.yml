@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
 
@@ -27,7 +27,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            scp -r ${{ github.workspace }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:./no_plagiat_app/backend/
+            if [ ! -d "./no_plagiat_app/backend/backend-Noplagiat/.git" ]; then
+               git clone https://github.com/NoPlagiatTeam/backend-Noplagiat.git ./no_plagiat_app/backend/
+             else
+               cd ./no_plagiat_app/backend/
+               git pull origin main
+             fi
             cd ./no_plagiat_app/backend/backend-Noplagiat
             npm install
             pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
