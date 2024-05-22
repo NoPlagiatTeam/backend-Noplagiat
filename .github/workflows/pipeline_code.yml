@@ -27,14 +27,14 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            APP_DIR=./no_plagiat_app/backend/
+            APP_DIR=./no_plagiat_app/backend/backend-Noplagiat/
             if [ ! -d "$APP_DIR" ]; then
               git clone https://github.com/NoPlagiatTeam/backend-Noplagiat.git $APP_DIR
             else
-              cd $APP_DIR/backend-Noplagiat/
+              cd $APP_DIR
               git pull origin main
             fi
-            cd $APP_DIR/backend-Noplagiat/
+            cd $APP_DIR
             npm install
             pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
             
