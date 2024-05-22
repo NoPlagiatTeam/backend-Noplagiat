@@ -1,4 +1,4 @@
-name: Deploy and Run Noplagiat Frontend
+name: Deploy and Run Noplagiat Backend
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies & run the app
         run: | 
-          npm install
+          npm install --force
           pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
           pm2 save
           
