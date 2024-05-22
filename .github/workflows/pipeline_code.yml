@@ -43,8 +43,8 @@ jobs:
             privateKey: ${{ secrets.SSH_KEY }}
             command: |
               cd ./no_plagiat_app/backend/backend-Noplagiat/
-              ls
-              npm -v
+              export NVM_DIR="$HOME/.nvm"
+              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
               npm install
               pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"            
       
