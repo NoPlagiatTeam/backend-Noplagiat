@@ -34,7 +34,7 @@ app.use('/downloaded_pdfs',express.static(__dirname + '/downloaded_pdfs'))
 app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
 
 // Liste des routes du serveur
-app.use('/', traitementRouter);
+app.use('/api/', traitementRouter);
 app.use('/api/formule', formuleRouter)
 app.use('/api/rapport', rapportRouter)
 app.use('/api/user', userRouter)
