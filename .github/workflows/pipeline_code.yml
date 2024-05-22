@@ -20,6 +20,7 @@ jobs:
         run: | 
           npm install
           pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
+          pm2 save
           
 
 
