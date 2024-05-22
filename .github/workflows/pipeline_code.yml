@@ -27,8 +27,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd ./no_plagiat_app/backend/
-            git pull origin main
+            scp -r ${{ github.workspace }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:./no_plagiat_app/backend/
+            cd ./no_plagiat_app/backend/backend-Noplagiat
             npm install
             pm2 restart no_plagiat_back || pm2 start app.js --name "no_plagiat_back"
             
