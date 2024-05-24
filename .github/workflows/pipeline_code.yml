@@ -20,7 +20,6 @@ jobs:
         run: npm install
 
       #Normally we should test the application at this step
-
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         with:
