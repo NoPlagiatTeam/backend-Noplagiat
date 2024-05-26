@@ -14,6 +14,8 @@ const port = normalizePort(process.env.PORT || '5000');
 
 const app = express();
 
+// sequelize.initDB().then(r => console.log("Connexion à la BD effectuée"));
+
 app.use(bodyParser.json())
 app.use(logger('dev'));
 // app.use(express.json());
@@ -25,10 +27,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
-
-sequelize.initDB();
-
-
 app.use('/downloaded_pdfs',express.static(__dirname + '/downloaded_pdfs'))
 app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
 
@@ -46,7 +44,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
