@@ -9,7 +9,7 @@ const rapportRouter = require('./src/routes/RapportRouter')
 const souscriptionRouter = require('./src/routes/SouscriptionRouter')
 const tokenRouter = require('./src/routes/TokenRouter')
 const userRouter = require('./src/routes/UserRouter')
-const sequelize = require('./src/db/sequelize');
+// const sequelize = require('./src/db/sequelize');
 const port = normalizePort(process.env.PORT || '5000');
 
 const app = express();
