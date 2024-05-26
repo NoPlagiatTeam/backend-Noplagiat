@@ -11,6 +11,7 @@ const souscriptionRouter = require('./src/routes/SouscriptionRouter')
 const tokenRouter = require('./src/routes/TokenRouter')
 const userRouter = require('./src/routes/UserRouter')
 const sequelize = require('./src/db/sequelize');
+const port = normalizePort(process.env.PORT || '5000');
 
 const app = express();
 app.use(bodyParser.json())
@@ -19,7 +20,6 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-process.chdir(path.join(__dirname, '..'));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -58,5 +58,25 @@ app.use(function(err, req, res, next) {
     error: err
   });
 });
+
+app.listen(port, () => {
+  console.log(`L'API est en cours d'exécution sur http://localhost:${port}`);
+});
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
 
 module.exports = app;

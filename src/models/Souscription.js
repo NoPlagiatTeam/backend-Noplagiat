@@ -7,7 +7,7 @@ const souscription =(sequelize, DataTypes,user,formule)=>{
         },
             expireAt: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: true
             },
         },
         {
