@@ -1,9 +1,10 @@
 const {Sequelize, DataTypes} =require('sequelize');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 // importation des models
-
+console.log()
 const userModel = require('../models/user');
 const formuleModel = require('../models/formule');
 const rapportModel = require('../models/rapport');

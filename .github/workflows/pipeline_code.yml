@@ -29,15 +29,10 @@ jobs:
           script: |
             APP_DIR=./backend-Noplagiat/
             if [ ! -d "$APP_DIR" ]; then
-              git clone https://github.com/NoPlagiatTeam/backend-Noplagiat.git $APP_DIR
+              git clone https://github.com/NoPlagiatTeam/backend-Noplagiat.git 
             else
-              cd $APP_DIR
               git pull origin main
             fi
-            
-            cd $APP_DIR
-            npm install
-            pm2 start npm -- "backend" -- start --watch
       
 
 
