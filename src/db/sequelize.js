@@ -5,10 +5,10 @@ const path = require('path');
 
 // importation des models
 console.log()
-const userModel = require('../models/user');
-const formuleModel = require('../models/formule');
-const rapportModel = require('../models/rapport');
-const souscriptionModel = require('../models/souscription');
+const userModel = require('../models/User');
+const formuleModel = require('../models/Formule');
+const rapportModel = require('../models/Rapport');
+const souscriptionModel = require('../models/Souscription');
 const tokenverificationModel = require('../models/Token');
 // configuration de la base de donnees
 let sequelize;
