@@ -1,4 +1,4 @@
-const tokenverification =(sequelize, DataTypes)=>{
+const Token =(sequelize, DataTypes)=>{
     const Tokenverification= sequelize.define('tokenverification', {
         id: {
             type: DataTypes.INTEGER,
@@ -32,4 +32,4 @@ const tokenverification =(sequelize, DataTypes)=>{
    
         return Tokenverification;
 }
-module.exports = tokenverification;
+module.exports = Token;

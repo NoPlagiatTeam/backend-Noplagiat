@@ -1,4 +1,4 @@
-const souscription =(sequelize, DataTypes,user,formule)=>{
+const Souscription =(sequelize, DataTypes,user,formule)=>{
     const Souscription= sequelize.define('souscription', {
         id: {
             type: DataTypes.INTEGER,
@@ -21,4 +21,4 @@ const souscription =(sequelize, DataTypes,user,formule)=>{
    
         return Souscription;
 }
-module.exports = souscription;
+module.exports = Souscription;

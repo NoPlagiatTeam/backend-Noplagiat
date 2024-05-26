@@ -1,4 +1,4 @@
-const formule =(sequelize, DataTypes)=>{
+const Formule =(sequelize, DataTypes)=>{
     const Formule= sequelize.define('formule', {
             id: {
                 type: DataTypes.INTEGER,
@@ -61,4 +61,4 @@ const formule =(sequelize, DataTypes)=>{
 
     return Formule;
 }
-module.exports = formule;
+module.exports = Formule;

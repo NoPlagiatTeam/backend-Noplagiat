@@ -1,4 +1,4 @@
-const rapport =(sequelize, DataTypes,user)=>{
+const Rapport =(sequelize, DataTypes,user)=>{
     const Rapport= sequelize.define('rapport', {
             id: {
                 type: DataTypes.INTEGER,
@@ -24,4 +24,4 @@ const rapport =(sequelize, DataTypes,user)=>{
 
     return Rapport;
 }
-module.exports = rapport;
+module.exports = Rapport;
