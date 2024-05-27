@@ -35,7 +35,7 @@ app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
 sequelize.initDB();
 
 // Liste des routes du serveur
-app.use('/api', traitementRouter);
+app.use('/api/', traitementRouter);
 app.use('/api/formule', formuleRouter)
 app.use('/api/rapport', rapportRouter)
 app.use('/api/user', userRouter)
