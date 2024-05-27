@@ -7,7 +7,7 @@ async function searchGoogleForPDFs(query) {
     console.log(`https://www.google.com/search?q=${encodeURIComponent(formatText(query))}&num=10&filter=0`)
       try {
         const browser = await puppeteer.launch({
-    args: ['--no-sandbox'],
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
     headless: true,
     ignoreHTTPSErrors: true,
     defaultViewport: null,
