@@ -44,6 +44,7 @@
     "pdf-parse": "^1.1.1",
     "performance-now": "^2.1.0",
     "puppeteer": "^21.3.8",
+    "puppeteer-core": "^22.10.0",
     "sequelize": "^6.37.1",
     "socket.io": "^4.6.2",
     "string-similarity": "^4.0.4",
