@@ -14,7 +14,7 @@ async function traitement(req,res, textdoc,text) {
         links=[... new Set(links)];
         console.log(links)
         console.log(index)
-        const outputFolder = 'downloaded_pdfs';
+        const outputFolder = 'api/downloaded_pdfs';
         downloadPDFs(links, outputFolder,text)
             .then(pdfFiles => {
                 res.status(200).json({pdfFiles});

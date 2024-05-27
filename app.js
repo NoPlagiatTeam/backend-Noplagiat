@@ -29,8 +29,8 @@ app.use((req, res, next) => {
 
 
 
-app.use('/downloaded_pdfs',express.static(__dirname + '/downloaded_pdfs'))
-app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
+app.use('/api/downloaded_pdfs',express.static(__dirname + '/api/downloaded_pdfs'))
+app.use('/api/upload_docs',express.static(__dirname + '/api/upload_docs'))
 
 sequelize.initDB();
 
