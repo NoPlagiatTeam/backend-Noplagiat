@@ -11,6 +11,7 @@ const souscriptionRouter = require('./src/routes/SouscriptionRouter')
 const tokenRouter = require('./src/routes/TokenRouter')
 const userRouter = require('./src/routes/UserRouter')
 const sequelize = require('./src/db/sequelize');
+const cors = require('cors')
 
 const app = express();
 app.use(bodyParser.json())
@@ -34,7 +35,7 @@ app.use('/upload_docs',express.static(__dirname + '/upload_docs'))
 sequelize.initDB();
 
 // Liste des routes du serveur
-app.use('/api/', traitementRouter);
+app.use('/api', traitementRouter);
 app.use('/api/formule', formuleRouter)
 app.use('/api/rapport', rapportRouter)
 app.use('/api/user', userRouter)
