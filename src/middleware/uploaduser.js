@@ -1,25 +1,19 @@
-const path = require('path');
 const multer  = require('multer')
+const fs = require('fs');
+const directoryExist = require("./utils");
 
-var storate = multer.diskStorage({
-    destination:function (req,file,cb){
- cb(null,'api/upload/user')
+const directory = 'api/uploads/users/';
+
+directoryExist(directory)
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, directory);
     },
-    filename:function(req,file,cb){
-let ext = path.extname(file.originalname)
-cb(null,Date.now()+ext)
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
     }
-    
-})
-var upload = multer({
-    storage:storate,
-    fileFilter:function (req,file,callback){
+});
+const upload = multer({ storage: storage });
 
-    callback(null, true) 
-
-    },
-    limits: {
-        fileSize:1024*1024*8
-    }
-})
 module.exports=upload

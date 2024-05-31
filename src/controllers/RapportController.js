@@ -1,4 +1,4 @@
-const {rapportTable} = require("../db/sequelize");
+const {rapportTable, userTable} = require("../db/sequelize");
 const {ValidationError} = require("sequelize");
 
 exports.getAll = async (req ,res)=>{
@@ -31,6 +31,7 @@ exports.getByUser = async (req ,res)=>{
 }
 
 exports.add = async (req,res)=>{
+    console.log('Handling file upload')
     if(req.file){
         req.body.rapport = req.file.path
     }else{
@@ -47,6 +48,6 @@ exports.add = async (req,res)=>{
                 return res.status(400).json({message: err.message, data: err});
             }
             console.log(err);
-            res.status(500).json({message: "Erreur lors de l'ajout d'un annonce! Reessayer plus tard",err})
+            res.status(500).json({message: "Erreur lors de l'ajout du rapport! Reessayer plus tard",err})
         })
 }

@@ -2,7 +2,7 @@ const multer  = require('multer')
 const fs = require('fs');
 const directoryExist = require("./utils");
 
-const directory = 'api/uploads/formules/';
+const directory = 'api/uploads/rapports/';
 
 directoryExist(directory)
 

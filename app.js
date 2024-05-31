@@ -12,10 +12,12 @@ const tokenRouter = require('./src/routes/TokenRouter')
 const userRouter = require('./src/routes/UserRouter')
 const sequelize = require('./src/db/sequelize');
 const cors = require('cors')
+const {swaggerUI, specs} = require("./documentation/Swagger");
 
 const app = express();
 app.use(bodyParser.json())
 app.use(logger('dev'));
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(specs));
 // app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -30,7 +32,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/downloaded_pdfs',express.static(__dirname + '/api/downloaded_pdfs'))
-app.use('/api/upload_docs',express.static(__dirname + '/api/upload_docs'))
+app.use('/api/uploads',express.static(__dirname + '/api/uploads'))
 
 sequelize.initDB();
 

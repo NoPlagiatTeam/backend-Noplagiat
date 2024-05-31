@@ -10,7 +10,7 @@ const MIME_TYPES = {
 
 const storage = multer.memoryStorage({
     destination: (req, file, callback) => {
-        callback(null, 'downloaded_pdfs');
+        callback(null, 'api/downloaded_pdfs');
     },
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_').split('.pdf')[0];

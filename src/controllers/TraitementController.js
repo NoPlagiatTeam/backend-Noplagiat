@@ -62,6 +62,7 @@ exports.traitementDoc = async (req, res, next) => {
 }
 
 exports.analyseDoc = async (req, res, next) => {
+    console.log(req.file)
     // if the req body is a file
     if (req.file) {
         try {
