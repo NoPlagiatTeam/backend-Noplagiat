@@ -15,7 +15,7 @@ const cors = require('cors')
 const {swaggerUI, specs} = require("./documentation/Swagger");
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '50mb' }))
 app.use(logger('dev'));
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(specs));
 // app.use(express.json());
