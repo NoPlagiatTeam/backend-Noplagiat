@@ -62,13 +62,15 @@ exports.register = async (req,res)=>{
 exports.addTeamMember = async (req, res) => {
     const password = bcrypt.hashSync("password",10);
     const nom =  ((req.body.email).split("@")[0]).split(".")[0]+"_Team_"+req.body.userId
+    let user_parent = {}
     userTable.findByPk(req.body.userId)
         .then(user=>{
             if (user) {
                 if (user.credit > req.body.credit) user.credit -=req.body.credit;
                 else res.status(400).send('Le nombre de mot demandé est supérieur au votre. Veuillez entrez un nombre de mots correct');
+                user_parent = user
                 // Enregistrez les modifications dans la base de données
-                return user.save();
+                return  user.save();
             } else {
                 return   res.status(400).send('Utilisateur non trouvé');
             }
@@ -83,7 +85,7 @@ exports.addTeamMember = async (req, res) => {
     userTable.create(req.body )
         .then(user =>{
             const message="  le membre de la team :"+req.body.email+" a bien été créé";
-            res.status(200).json({message, data: user});
+            res.status(200).json({message, data: user, user_parent: user_parent});
         })
         .catch(err =>{
             if(err){
