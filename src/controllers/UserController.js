@@ -1,10 +1,10 @@
-const {userTable} = require("../db/sequelize");
+const {userTable, rapportTable} = require("../db/sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const private_key = require('../auth/private_key');
+const {spliceStr} = require("sequelize/lib/utils");
 exports.login = async (req,res)=>{
     console.log(req.body);
-
     userTable.findOne({where:{email:req.body.email}, include:[userTable]})
         .then(user=>{
             if(!user){
@@ -59,8 +59,57 @@ exports.register = async (req,res)=>{
         })
 }
 
+exports.addTeamMember = async (req, res) => {
+    const password = bcrypt.hashSync("password",10);
+    const nom =  ((req.body.email).split("@")[0]).split(".")[0]+"_Team_"+req.body.userId
+    userTable.findByPk(req.body.userId)
+        .then(user=>{
+            if (user) {
+                if (user.credit > req.body.credit) user.credit -=req.body.credit;
+                else res.status(400).send('Le nombre de mot demandé est supérieur au votre. Veuillez entrez un nombre de mots correct');
+                // Enregistrez les modifications dans la base de données
+                return user.save();
+            } else {
+                return   res.status(400).send('Utilisateur non trouvé');
+            }
+        })
+    if(req.file){
+        req.body.photo = req.file.path
+    }else{
+        req.body.photo = ""
+    }
+    req.body.nom = nom
+    req.body.password = password
+    userTable.create(req.body )
+        .then(user =>{
+            const message="  le membre de la team :"+req.body.email+" a bien été créé";
+            res.status(200).json({message, data: user});
+        })
+        .catch(err =>{
+            if(err){
+                console.log(err)
+                return res.status(400).json({message: err.message, data: err});
+            }
+            res.status(500).json({message: "Erreur lors de l'ajout d'un user! Reessayer plus tard",err})
+        })
+}
+
+exports.getTeamMember = async (req, res) => {
+    userTable.findAll({
+            where:{userId:req.params.id},
+            // include:[userTable]
+        }
+    )
+        .then(user =>{
+            const message ="La liste a bien ete recuperer!"
+            res.status(200).json({message,data: user})
+        })
+        .catch(err =>{
+            res.status(500).json({message: "Erreur lors de la recuperation de la liste! Reessayer plus tard",err})
+        })
+}
+
 exports.getByUserId = async (req,res)=>{
-    console.log(req.params);
     userTable.findByPk(req.params.id)
         .then(user=>{
             if(!user){
@@ -82,7 +131,6 @@ exports.update = async (req,res)=>{
     const updateData = {email: req.body.email, password: newPassword }
     const userId = req.body.userId
     try{
-        console.log(updateData)
         const [updated] = await userTable.update(updateData, {
             where: { id: userId }
         });
@@ -96,7 +144,6 @@ exports.update = async (req,res)=>{
         }
     }catch (e){
         console.error('Error updating user:', e);
-        console.log(e);
         const message="utiliaateur  non existant";
         return res.status(500).json({message, data:e});
     }

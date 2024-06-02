@@ -81,8 +81,8 @@ exports.analyseDoc = async (req, res, next) => {
         try {
             const {link} = req.body;
             if (!link) {
-                return res.status(400).json({error: 'Veuillez fournir un lien vers le document.'});
                 Logger("Veuillez fournir un lien vers le document.")
+                return res.status(400).json({error: 'Veuillez fournir un lien vers le document.'});
             }
             // Télécharge le document à partir du lien
             const buffer = await download(link);
@@ -90,8 +90,8 @@ exports.analyseDoc = async (req, res, next) => {
             const detectedMimeType = mimetype.lookup(link);
             console.log(detectedMimeType)
             if (!detectedMimeType) {
-                return res.status(400).json({error: 'Type de fichier non pris en charge ou impossible à détecter.'});
                 Logger("Type de fichier non pris en charge ou impossible à détecter.")
+                return res.status(400).json({error: 'Type de fichier non pris en charge ou impossible à détecter.'});
             }
             await _returnNbMotAndPages(detectedMimeType, buffer, res);
         } catch (error) {

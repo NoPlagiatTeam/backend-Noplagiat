@@ -12,7 +12,6 @@ function verifyToken(req, res, next) {
     if(!authorization){
         const message= "Vous n'avez pas fournie de jeton d'authentification. Ajouter un dans l'entete de requete";
         return res.status(401).json({message});
-
     }
     const token = authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, private_key, (error, decodedToken) => {
