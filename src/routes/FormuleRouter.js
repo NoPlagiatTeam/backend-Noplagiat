@@ -5,6 +5,6 @@ const {add,findAll} = require("../controllers/FormuleController");
 const verifyToken = require("../middleware/auth");
 
 router.post('/add',verifyToken,upload.single("image"),add)
-router.get('/all',verifyToken,findAll)
+router.get('/all', verifyToken, findAll)
 
 module.exports = router;
